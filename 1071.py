@@ -1,53 +1,57 @@
-def do():
-    str1 = "ABABABAB"
-    str2 = "ABABABABABABABABABABABAB"
-    
-    
-    # Verify if both strings has no unmatching characters
-    length = min(len(str1), len(str2))
+class Solution(object):
+    def gcdOfStrings(self, str1, str2):
+        """
+        :type str1: str
+        :type str2: str
+        :rtype: str
+        """
 
-    if str1[:length] != str2[:length]:
-        return ""
-    
-    keyword = str1[:length]
+        length = min(len(str1), len(str2))
 
-    if str1 == str2:
-        rest = ""
-    else:
-        rest = str2[length:] if str1[length:] == "" else str1[length:]
-    
-    final_keyword = keyword
-    j = len(keyword)
-    while j > 1:
-        j-= 1
-        while len(keyword) % j != 0:
-            j -=1
-        
-        idx = j
-        flag = False
-
-        while idx < len(keyword) - j and idx+j <= len(keyword):
-            if keyword[idx:idx+j] != keyword[:j]:
-                flag = True
-                break
-            idx+=j
-
-        if flag == True:
-            continue
-        final_keyword = keyword[:j]
-    
-   
-    idx = 0
-    key_length = len(final_keyword)
-
-    if len(rest) % key_length != 0:
-        return ""
-
-    while idx + key_length <= len(rest):
-        if rest[idx:idx+key_length] != final_keyword:
+        if str1[:length] != str2[:length]:
             return ""
-        idx+=key_length
+        
+        
+        keyword = str1[:length]
+        great_word = ""
 
-    return final_keyword
+        if str1 == str2:
+            return keyword
+        elif len(str1) > len(str2):
+            great_word = str1
+        else:
+            great_word = str2
 
-print(do())
+        i = len(keyword)
+        final_keyword = ""
+        while i > 0:
+            while len(keyword) % i != 0 or len(great_word) % i != 0:
+                i -=1
+            
+            idx = i
+            flag = False
+            while idx+i <= len(keyword):
+                if keyword[idx:idx+i] != keyword[:i]:
+                    flag = True
+                    break
+                idx+=i
+            
+            if flag == True:
+                i -= 1
+                continue
+            flag = False
+            
+            while idx+i <= len(great_word):
+                if great_word[idx:idx+i] != keyword[:i]:
+                    flag = True
+                    break
+                idx+=i
+
+            if flag == True:
+                i -= 1
+                continue
+
+            final_keyword = keyword[:i]
+            break
+
+        return final_keyword    
