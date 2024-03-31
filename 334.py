@@ -1,14 +1,12 @@
 class Solution:
     def increasingTriplet(self, nums: list[int]) -> bool:
-        if len(nums) < 3:
-            return False
-        
+
         right_min = nums.copy()
         left_max = nums.copy()
-
+        size = len(nums)
         i = 1
-        j = len(nums) - 2
-        while i < len(nums) and j >= 0:
+        j = size - 2
+        while i < size and j >= 0:
             if right_min[i-1] > nums[i]:
                 right_min[i] = nums[i]
             else:
@@ -20,22 +18,9 @@ class Solution:
                 left_max[j] = left_max[j+1]
             i+=1
             j-=1
-
-        # for i in range(1, len(nums)):
-        #     if right_min[i-1] > nums[i]:
-        #         right_min[i] = nums[i]
-        #     else:
-        #         right_min[i] = right_min[i-1]
-        
-        
-        # for i in range(len(nums) - 2, -1, -1):
-        #     if left_max[i+1] < nums[i]:
-        #         left_max[i] = nums[i]
-        #     else:
-        #         left_max[i] = left_max[i+1]
             
-        for i, val in enumerate(nums):
-            if val > right_min[i] and val < left_max[i]:
+        for i in range(size):
+            if nums[i] > right_min[i] and nums[i] < left_max[i]:
                 return True
             
         return False
