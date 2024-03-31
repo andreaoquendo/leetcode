@@ -1,3 +1,4 @@
+# https://leetcode.com/problems/count-subarrays-with-fixed-bounds/?envType=daily-question&envId=2024-03-31
 class Solution:
     def countSubarrays(self, nums: list[int], minK: int, maxK: int) -> int:
         max_flag = False
